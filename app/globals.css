@@ -65,25 +65,26 @@
 
 .dark {
   color-scheme: dark;
-  --background: #1d2129;
-  --foreground: #eaeaea;
-  --card: #252a34;
-  --card-foreground: #eaeaea;
-  --popover: #252a34;
-  --popover-foreground: #eaeaea;
+  /* Deep charcoal, near-black */
+  --background: #0a0b0d;
+  --foreground: #e8eaed;
+  --card: #131519;
+  --card-foreground: #e8eaed;
+  --popover: #16181d;
+  --popover-foreground: #e8eaed;
   /* teal */
   --primary: #08d9d6;
-  --primary-foreground: #06171a;
-  --secondary: #2e353f;
-  --secondary-foreground: #eaeaea;
-  --muted: #2e353f;
-  --muted-foreground: #9ba6b4;
+  --primary-foreground: #05131a;
+  --secondary: #1c1f26;
+  --secondary-foreground: #e8eaed;
+  --muted: #1c1f26;
+  --muted-foreground: #868d99;
   /* pink */
   --accent: #ff2e63;
   --accent-foreground: #ffffff;
   --destructive: #ff2e63;
-  --border: rgba(234, 234, 234, 0.1);
-  --input: rgba(234, 234, 234, 0.13);
+  --border: rgba(255, 255, 255, 0.08);
+  --input: rgba(255, 255, 255, 0.1);
   --ring: #08d9d6;
 }
 
@@ -96,7 +97,7 @@
   }
   body {
     @apply bg-background text-foreground antialiased;
-    font-family: var(--font-mono);
+    font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
   }
   ::selection {
@@ -124,8 +125,18 @@
     background-clip: content-box;
   }
 
-  /* New output eases in — subtle, not flashy */
-  @keyframes flicker-in {
+  /* Subtle desktop backdrop behind the app window */
+  .desktop-bg {
+    background-color: var(--background);
+    background-image: radial-gradient(
+      color-mix(in oklch, var(--foreground) 5%, transparent) 1px,
+      transparent 1px
+    );
+    background-size: 26px 26px;
+  }
+
+  /* Tab panels fade/slide in smoothly when switched */
+  @keyframes panel-in {
     0% {
       opacity: 0;
       transform: translateY(4px);
@@ -135,8 +146,36 @@
       transform: translateY(0);
     }
   }
+  .panel-in {
+    animation: panel-in 0.22s ease-out both;
+  }
+
+  /* Soft, layered window shadow (Codex / Claude desktop feel) */
+  .window-shadow {
+    box-shadow:
+      0 1px 2px rgba(0, 0, 0, 0.04),
+      0 12px 28px -8px rgba(0, 0, 0, 0.14),
+      0 40px 80px -24px rgba(0, 0, 0, 0.18);
+  }
+  .dark .window-shadow {
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.04),
+      0 24px 70px -20px rgba(0, 0, 0, 0.8);
+  }
+
+  /* Content eases in — subtle, not flashy */
+  @keyframes flicker-in {
+    0% {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
   .flicker-in {
-    animation: flicker-in 0.28s ease-out both;
+    animation: flicker-in 0.32s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 
   /* Blinking caret for the streaming AI text / prompt */
@@ -177,6 +216,7 @@
 
   @media (prefers-reduced-motion: reduce) {
     .flicker-in,
+    .panel-in,
     .bar-fill,
     .caret {
       animation: none;

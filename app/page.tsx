@@ -1,5 +1,5 @@
-import { Terminal } from '@/components/terminal/terminal'
+import { PortfolioApp } from '@/components/app/portfolio-app'
 
 export default function Page() {
-  return <Terminal />
+  return <PortfolioApp />
 }
