@@ -150,6 +150,7 @@ export function PortfolioApp() {
         <DesktopWindow
           title={`${config.meta.name.toLowerCase().replace(/\s+/g, '-')} — portfolio`}
           right={<ThemeToggle />}
+          layer={<NeuralBackground variant="card" />}
           nav={
             !atHome ? (
               <button

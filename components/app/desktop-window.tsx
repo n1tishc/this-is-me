@@ -9,11 +9,14 @@ export function DesktopWindow({
   title,
   nav,
   right,
+  layer,
   children,
 }: {
   title: string
   nav?: ReactNode
   right?: ReactNode
+  /** Optional decorative layer painted behind the content (e.g. a node field). */
+  layer?: ReactNode
   children: ReactNode
 }) {
   return (
@@ -36,7 +39,10 @@ export function DesktopWindow({
       </header>
 
       {/* Content */}
-      <div className="relative flex min-h-0 flex-1 flex-col">{children}</div>
+      <div className="relative flex min-h-0 flex-1 flex-col">
+        {layer}
+        <div className="relative z-10 flex min-h-0 flex-1 flex-col">{children}</div>
+      </div>
     </div>
   )
 }
