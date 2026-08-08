@@ -149,7 +149,7 @@ export const config: PortfolioConfig = {
     subheadline: 'AI / ML Engineer',
     valueProp:
       'I take machine learning out of notebooks and into production — LLM and RAG applications, computer vision, and on-device inference — backed by real systems and MLOps rigor.',
-    location: 'Rochester, NY',
+    location: 'San Francisco, CA',
     email: 'chandunitish@gmail.com',
     availability: 'Open to New Grad AI / ML Engineer roles',
     resumeUrl: '/resume.pdf', // TODO: drop your latest resume in /public/resume.pdf
